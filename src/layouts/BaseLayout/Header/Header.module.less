@@ -1,0 +1,28 @@
+@import "~configs/variables.less";
+
+.fold,
+.bell,
+.fullscreen {
+  padding: 0 16px;
+}
+.userInfo,
+.breadcrumbBar {
+  display: flex;
+  align-items: center;
+}
+.avatar {
+  display: flex;
+  align-items: center;
+  height: @headerHeight;
+  padding: 0 16px;
+  .img {
+    margin-right: 8px;
+  }
+}
+.fold:hover,
+.bell:hover,
+.avatar:hover,
+.fullscreen:hover {
+  color: @hoverTextColor;
+  cursor: pointer;
+}

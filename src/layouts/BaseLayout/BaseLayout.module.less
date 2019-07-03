@@ -1,0 +1,32 @@
+@import "~configs/variables.less";
+
+.sider {
+  position: fixed;
+  width: @siderWidth;
+  height: 100vh;
+  background-color: @menuBackgroundColor;
+  box-shadow: @boxRightShadow;
+  overflow: auto;
+  z-index: 20;
+}
+.sider::-webkit-scrollbar {
+  width: 0;
+}
+.main {
+  height: 100vh;
+  margin-left: @siderWidth;
+}
+.header {
+  position: fixed;
+  width: calc(100% - @siderWidth);
+  height: @headerHeight;
+  box-shadow: @boxBottomShadow;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  z-index: 10;
+}
+.content {
+  padding: @headerHeight + 12px 12px 12px 12px;
+}
