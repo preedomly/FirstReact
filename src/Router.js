@@ -4,7 +4,7 @@
 import React, { Suspense, lazy, PureComponent } from "react";
 import { connect } from "react-redux";
 // 动态路由引入
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import { HashRouter, Switch, Route, Redirect } from "react-router-dom";
 import routes from "./configs/routes.js";
 
 // 自定义未能访问 --》 未有权限--》 访问失败等页面
@@ -30,7 +30,7 @@ class Router extends PureComponent {
   render() {
     const { menus } = this.props;
     return (
-      <BrowserRouter>
+      <HashRouter>
         <Suspense fallback={null}>
           <Switch>
             {routes.map(x => {
@@ -66,7 +66,7 @@ class Router extends PureComponent {
             <Route render={() => <Exception />} />
           </Switch>
         </Suspense>
-      </BrowserRouter>
+      </HashRouter>
     );
   }
 }
