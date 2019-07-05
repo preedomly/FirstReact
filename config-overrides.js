@@ -1,38 +1,36 @@
-/**
- * @description 通过customize-cra 配合react-app-rewired 覆盖create-react-app 的webpack 配置
- */
-const path = require('path')
 const {
   override,
-  useBabelRc,
-  useEslintRc,
+  addDecoratorsLegacy,
+  disableEsLint,
+  addBundleVisualizer,
   addWebpackAlias,
+  adjustWorkbox,
   addLessLoader,
-  overrideDevServer,
-} = require('customize-cra')
-const apiMocker = require('mocker-api')
+  fixBabelImports
+} = require('customize-cra');
+const path = require('path');
 
-const addMocker = () => config => {
-  config.before = app => {
-    apiMocker(app, path.resolve(__dirname, 'mock/index.js'))
-  }
-  return config
-}
-
-module.exports = {
-  webpack: override(
-    useBabelRc(),
-    useEslintRc(),
-    addWebpackAlias({
-      '@': path.resolve(__dirname, 'src'),
-    }),
-    addLessLoader({
-      javascriptEnabled: true,
-      localIdentName: '[local]--[hash:base64:5]',
-      modifyVars: {
-        'primary-color': '#2f54eb',
-      },
-    }),
+module.exports = override(
+  addDecoratorsLegacy(),
+  disableEsLint(),
+  process.env.BUNDLE_VISUALIZE === 1 && addBundleVisualizer(),
+  addWebpackAlias({
+    '@': path.resolve(__dirname, 'src'),
+    components: path.resolve(__dirname, 'src/components'),
+    assets: path.resolve(__dirname, 'src/assets')
+  }),
+  adjustWorkbox(wb =>
+    Object.assign(wb, {
+      skipWaiting: true,
+      exclude: (wb.exclude || []).concat('index.html')
+    })
   ),
-  devServer: overrideDevServer(addMocker()),
-}
+  fixBabelImports('import', {
+    libraryName: 'antd',
+    style: true
+  }),
+  addLessLoader({
+    localIdentName: '[local]--[hash:base64:8]',
+    modifyVars: {}
+  }),
+);
