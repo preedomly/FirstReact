@@ -2,6 +2,7 @@
   "name": "dva-boot",
   "version": "2.0.0",
   "description": "React & DVA Boilerplate",
+  "private": true,
   "homepage": "./",
   "repository": "https://github.com/LANIF-UI/dva-boot.git",
   "license": "MIT",
@@ -29,6 +30,7 @@
     "react": "^16.2.0",
     "react-document-title": "^2.0.3",
     "react-dom": "^16.2.0",
+    "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
     "style-loader": "^0.23.1"
   },
