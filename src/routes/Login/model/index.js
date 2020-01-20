@@ -23,27 +23,17 @@ export default {
 
   effects: {
     *login({ payload }, { call, put }) {
-      const data = { userName: 'luohq', password: '123456',name: '罗宝宝' };
-      if (payload.userName === 'luohq') {
-        $$.setStore('user', data);
+      const { msgCode } = yield call(login, payload)
+      if (msgCode === 0) {
+        $$.setStore('user', payload);
         yield put({
           type: 'loginSuccess',
-          payload: data
-        });
+          payload: payload,
+        })
         yield put(routerRedux.push('/'));
-        return true;
+      } else {
+        return message.error('密码错误');
       }
-      // const { msgCode } = yield call(login, payload)
-      // if (msgCode === 0) {
-      //   $$.setStore('user', data);
-      //   yield put({
-      //     type: 'loginSuccess',
-      //     payload: data
-      //   })
-      //   yield put(routerRedux.push('/'));
-      // } else {
-      //   return message.error('密码错误');
-      // }
     },
     *logout(_, { put }) {
 

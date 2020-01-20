@@ -27,19 +27,19 @@ export default class BasicLayout extends React.PureComponent {
     const { name } = this.state;
     return (
       <div className="basic">
-        <div className="basic_top">初步框架内容</div>
-        <div className="basic_page">
-          <Switch >
-            {childRoutes}
-          </Switch>
-        </div>
-        <div className="basic_Nav">
+        {/* <div className="basic_page">
+       
+        </div> */}
+        <Switch >
+          {childRoutes}
+        </Switch>
+        {/* <div className="basic_Nav">
           <NavLink to="/home" activeClassName="active">首页</NavLink>
           <NavLink to="/userInfo" activeClassName="active">视频</NavLink>
-          <NavLink to="/userInfo" activeClassName="active">菜单</NavLink>
+          <NavLink to="/logins" activeClassName="active">菜单</NavLink>
           <NavLink to="/marriage" activeClassName="active">结婚照</NavLink>
           <NavLink to="/user" activeClassName="active">{name}</NavLink>
-        </div>
+        </div> */}
       </div>
     );
   }

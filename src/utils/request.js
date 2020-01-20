@@ -1,8 +1,7 @@
 import React from 'react';
 import fetch from 'dva/fetch';
-import {notification} from 'antd';
-import parseValues, {getCurrTk, getUserInfo} from './utils';
-import store from '../index';
+import { message } from 'antd';
+import parseValues, { getCurrTk, getUserInfo } from './utils';
 
 
 function checkStatus(response, randerTime) {
@@ -17,10 +16,11 @@ function checkStatus(response, randerTime) {
   if (response.status >= 200 && response.status < 300) {
     return response;
   }
-  notification.error({
-    message: `请求错误 ${response.status}: ${response.url}`,
-    description: response.statusText,
-  });
+  // notification.error({
+  //   message: `请求错误 ${response.status}: ${response.url}`,
+  //   description: response.statusText,
+  // });
+  message.error(`请求错误${response.status}: ${response.url}`);
   const error = new Error(response.statusText);
   error.response = response;
   throw error;
@@ -41,7 +41,7 @@ export default function request(url, options = {}, attach = false, noTk = false,
   const defaultOptions = {
     credentials: 'include',
   };
-  const newOptions = {...defaultOptions, ...options};
+  const newOptions = { ...defaultOptions, ...options };
 
   let ecode = '';
   let userInfo = getUserInfo();
@@ -87,7 +87,7 @@ export default function request(url, options = {}, attach = false, noTk = false,
   const randerTime = new Date().getTime();
   if (!noTk) {
     const tk = getCurrTk();
-    newOptions.headers = {...newOptions.headers, token: tk};
+    newOptions.headers = { ...newOptions.headers, token: tk };
     let ii = url.indexOf('?');
     if (ii === -1) {
       url += '?';
@@ -121,7 +121,7 @@ export default function request(url, options = {}, attach = false, noTk = false,
       return checkStatus(response, randerTime);
     }).then(response => {
       return response.json().then((res) => {
-        const {code} = res;
+        const { code } = res;
         // if (code === '401' || code === 401) {
         //   const { dispatch } = store;
         //   dispatch({
@@ -133,16 +133,18 @@ export default function request(url, options = {}, attach = false, noTk = false,
       });
     }).catch((error) => {
       if (error.code) {
-        notification.error({
-          message: error.name,
-          description: error.message,
-        });
+        // notification.error({
+        //   message: error.name,
+        //   description: error.message,
+        // });
+        message.error(`${error.name}${error.message}`)
       }
       if ('stack' in error && 'message' in error) {
-        notification.error({
-          message: `请求错误: ${url}`,
-          description: error.message,
-        });
+        message.error(`${url}${error.message}`)
+        // notification.error({
+        //   message: `请求错误: ${url}`,
+        //   description: error.message,
+        // });
       }
       return error;
     });

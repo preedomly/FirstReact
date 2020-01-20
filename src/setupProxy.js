@@ -7,7 +7,7 @@ module.exports = function (app) {
   app.use(
     proxy('/proxy', {
       // target: 'http://promotion-service13-pre-zhyytest.oennso.enn.cn/api/v1/sop/',
-      "target": 'http://172.16.40.42:8080/api/v1.0/userService',
+      "target": 'http://127.0.0.1:8080/api',
       changeOrigin: true,
       pathRewrite: { '^/proxy': '' }
     }),

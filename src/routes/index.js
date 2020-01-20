@@ -7,6 +7,10 @@ import Home from './Home';
 import UserInfo from './UserInfo';
 import Marriage from './MarriagePhoto';
 
+/**
+ * 按照路由顺序生成页面
+ * @param {*} app 
+ */
 const routesConfig = (app) => ([
   {
     path: '/user',
@@ -15,7 +19,6 @@ const routesConfig = (app) => ([
     component: UserLayout,
     childRoutes: [
       Login(app),
-      NotFound()
     ]
   }, {
     path: '/',
@@ -24,9 +27,9 @@ const routesConfig = (app) => ([
     indexRoute: '/home',
     childRoutes: [
       Home(app),
-      UserInfo(app),
-      Marriage(app),
-      NotFound()
+      // UserInfo(app),
+      // Marriage(app),
+      // NotFound()
     ]
   }
 ]);
